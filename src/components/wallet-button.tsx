@@ -1,0 +1,76 @@
+
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Loader2, Wallet } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+interface WalletButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "default" | "outline" | "secondary" | "ghost" | "link" | "destructive" | "gradient";
+}
+
+export function WalletButton({ 
+  className, 
+  variant = "default",
+  ...props 
+}: WalletButtonProps) {
+  const [connecting, setConnecting] = useState(false);
+  const [connected, setConnected] = useState(false);
+  const [address, setAddress] = useState("");
+
+  const connectWallet = async () => {
+    setConnecting(true);
+    
+    // Simulate connection delay
+    setTimeout(() => {
+      const mockAddress = "0x" + Math.random().toString(16).substring(2, 14);
+      setAddress(mockAddress);
+      setConnected(true);
+      setConnecting(false);
+    }, 1500);
+  };
+
+  const disconnectWallet = () => {
+    setConnected(false);
+    setAddress("");
+  };
+
+  const truncateAddress = (addr: string) => {
+    return addr.slice(0, 6) + "..." + addr.slice(-4);
+  };
+
+  if (connected) {
+    return (
+      <Button
+        variant="outline"
+        size="sm"
+        className={cn("flex items-center gap-2", className)}
+        onClick={disconnectWallet}
+        {...props}
+      >
+        <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse-slow" />
+        <span className="font-medium">{truncateAddress(address)}</span>
+      </Button>
+    );
+  }
+
+  return (
+    <Button
+      variant={variant}
+      className={cn(
+        "min-w-[140px]",
+        variant === "gradient" && "gradient-purple-indigo text-white border-0 hover:opacity-90",
+        className
+      )}
+      onClick={connectWallet}
+      disabled={connecting}
+      {...props}
+    >
+      {connecting ? (
+        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+      ) : (
+        <Wallet className="mr-2 h-4 w-4" />
+      )}
+      {connecting ? "Connecting..." : "Connect Wallet"}
+    </Button>
+  );
+}
