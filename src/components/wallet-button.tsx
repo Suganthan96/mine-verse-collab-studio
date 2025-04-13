@@ -5,7 +5,7 @@ import { Loader2, Wallet } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface WalletButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "default" | "outline" | "secondary" | "ghost" | "link" | "destructive" | "gradient";
+  variant?: "default" | "outline" | "secondary" | "ghost" | "link" | "destructive";
 }
 
 export function WalletButton({ 
@@ -58,7 +58,7 @@ export function WalletButton({
       variant={variant}
       className={cn(
         "min-w-[140px]",
-        variant === "gradient" && "gradient-purple-indigo text-white border-0 hover:opacity-90",
+        variant === "default" ? "bg-gradient-to-r from-minenft-purple to-minenft-indigo text-white hover:opacity-90" : "",
         className
       )}
       onClick={connectWallet}

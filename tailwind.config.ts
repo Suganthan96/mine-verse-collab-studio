@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -63,7 +62,6 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// MineNFT custom colors
 				minenft: {
 					purple: '#8B5CF6',
 					indigo: '#6366F1',
@@ -75,6 +73,7 @@ export default {
 			},
 			fontFamily: {
 				inter: ['Inter', 'sans-serif'],
+				minecraft: ['"VT323"', 'monospace'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
