@@ -36,57 +36,56 @@ export default function Login() {
         <ThemeToggle />
       </div>
       
-      <div className={cn(
-        "flex-1 flex flex-col items-center justify-center p-4 gap-8",
-        "bg-gradient-to-br from-minenft-purple/20 via-minenft-indigo/20 to-minenft-purple/20",
-        "dark:from-minenft-purple/10 dark:via-minenft-indigo/10 dark:to-minenft-purple/10",
-        show ? "opacity-100" : "opacity-0",
-        "transition-opacity duration-1000"
-      )}>
-        <div className={cn(
-          "flex flex-col items-center gap-6 max-w-md w-full p-8 rounded-xl glassmorphism",
-          "shadow-lg border border-white/20 dark:border-white/10",
-          show ? "translate-y-0" : "translate-y-4",
-          "transition-transform duration-700"
-        )}>
-          <AppLogo size="xl" variant="gradient" />
+      <div 
+        className={cn(
+          "relative min-h-screen w-full flex flex-col items-center justify-center p-4 overflow-hidden",
+          show ? "opacity-100" : "opacity-0",
+          "transition-opacity duration-1000"
+        )}
+      >
+        {/* Minecraft-style background */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ 
+            backgroundImage: `url('https://images.unsplash.com/photo-1619197079695-0ecae31d4fc3?q=80&w=1920&auto=format&fit=crop')`,
+            filter: 'brightness(0.6)'
+          }}
+        />
+        
+        {/* Pixelated overlay pattern */}
+        <div className="absolute inset-0 bg-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAFpJREFUOE9jZKAQMFKon2HwGcCERvNjsXAGMAIJXOAREA9cBTQAm8QjJANwycPBEDSAEV2ACRqTjFhskJgDugFM0CROaM7Hlv2JNoARl2EMWCTQFTBCxYc9AADRHAw1VpHtFAAAAABJRU5ErkJggg==')] opacity-20" />
+        
+        {/* Content */}
+        <div className="relative z-10 flex flex-col items-center max-w-md w-full">
+          {/* Title in Minecraft style */}
+          <h1 className={cn(
+            "font-minecraft text-6xl md:text-7xl mb-8 text-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]",
+            show ? "translate-y-0" : "translate-y-10",
+            "transition-transform duration-700"
+          )}>
+            Mine<span className="text-minenft-purple">NFT</span>
+          </h1>
           
-          <p className="text-center text-muted-foreground max-w-xs">
-            Connect your wallet to collaborate with artists and create unique NFTs
-          </p>
-          
-          <div className="flex flex-col gap-4 w-full mt-4">
+          <div className={cn(
+            "w-full p-8 rounded-xl glassmorphism backdrop-blur-xl bg-black/20 border border-white/10",
+            show ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0",
+            "transition-all duration-700 delay-300"
+          )}>
+            <p className="text-center text-white mb-8 font-minecraft">
+              Connect your wallet to start your Web3 adventure
+            </p>
+            
             <WalletButton 
-              variant="gradient" 
-              className="w-full" 
+              variant="default" 
+              className="w-full h-12 text-lg font-minecraft border-2 border-minenft-purple/50 hover:scale-105 transition-transform shadow-lg"
               onClick={simulateWalletConnect}
             />
-            
-            <div className="relative my-2">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-xs text-muted-foreground">
-                <span className="bg-background dark:bg-background px-2">
-                  or continue with
-                </span>
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <Button variant="outline" onClick={() => navigate("/")}>
-                Guest Mode
-              </Button>
-              <Button variant="outline" onClick={() => navigate("/")}>
-                Demo Account
-              </Button>
-            </div>
           </div>
         </div>
         
-        <p className="text-xs text-muted-foreground">
-          By connecting, you agree to our Terms of Service and Privacy Policy
-        </p>
+        {/* Minecraft-style ground blocks at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 h-8 bg-[#3D2D1D] z-10"></div>
+        <div className="absolute bottom-8 left-0 right-0 h-4 bg-[#8B6E4C] z-10"></div>
       </div>
     </div>
   );
