@@ -1,10 +1,17 @@
-
 import { Layout } from "@/components/layout";
 import { StatsCard } from "@/components/stats-card";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowUpRight, BarChart4, CircleDollarSign, Image, LineChart, TrendingUp, Users } from "lucide-react";
+import { Image, Users } from "lucide-react";
 import { useEffect, useState } from "react";
+
+const MOCK_NFTS = [
+  { id: 1, name: "Pixel Sword #01", image: "https://placehold.co/300x300/44337a/ffffff?text=Pixel+Sword", price: "0.25 ETH", creator: "You" },
+  { id: 2, name: "Diamond Block #14", image: "https://placehold.co/300x300/3182ce/ffffff?text=Diamond+Block", price: "0.18 ETH", creator: "You" },
+  { id: 3, name: "Emerald Pick #03", image: "https://placehold.co/300x300/2f855a/ffffff?text=Emerald+Pick", price: "0.30 ETH", creator: "You" },
+  { id: 4, name: "Golden Helmet #07", image: "https://placehold.co/300x300/b7791f/ffffff?text=Golden+Helmet", price: "0.22 ETH", creator: "You" },
+  { id: 5, name: "Creeper Art #11", image: "https://placehold.co/300x300/276749/ffffff?text=Creeper+Art", price: "0.15 ETH", creator: "You" },
+  { id: 6, name: "Redstone Device #05", image: "https://placehold.co/300x300/c53030/ffffff?text=Redstone+Device", price: "0.27 ETH", creator: "You" },
+];
 
 export default function Dashboard() {
   const [loadingState, setLoadingState] = useState<"loading" | "loaded">("loading");
@@ -27,7 +34,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
           <StatsCard
             title="Total NFTs"
             value={loadingState === "loading" ? "..." : "54"}
@@ -39,84 +46,50 @@ export default function Dashboard() {
             value={loadingState === "loading" ? "..." : "18"}
             icon={<Users />}
             description="With 9 artists"
-            trend={{ value: 12, isPositive: true }}
-          />
-          <StatsCard
-            title="Revenue"
-            value={loadingState === "loading" ? "..." : "Ξ 5.24"}
-            icon={<CircleDollarSign />}
-            description="Last 30 days"
-            trend={{ value: 8.2, isPositive: true }}
-          />
-          <StatsCard
-            title="Growth"
-            value={loadingState === "loading" ? "..." : "+24%"}
-            icon={<TrendingUp />}
-            description="Compared to last month"
           />
         </div>
 
-        <Tabs defaultValue="revenue">
-          <div className="flex items-center justify-between">
-            <TabsList>
-              <TabsTrigger value="revenue">Revenue</TabsTrigger>
-              <TabsTrigger value="collections">Collections</TabsTrigger>
-              <TabsTrigger value="visitors">Visitors</TabsTrigger>
-            </TabsList>
-            <div className="text-sm text-muted-foreground">Last 30 days</div>
-          </div>
-
-          <TabsContent value="revenue" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Revenue Overview</CardTitle>
-                <CardDescription>Your earning performance over time</CardDescription>
-              </CardHeader>
-              <CardContent className="h-72 flex items-center justify-center">
-                <div className="flex flex-col items-center justify-center h-full w-full space-y-4">
-                  <LineChart className="h-12 w-12 text-primary opacity-70" />
-                  <p className="text-muted-foreground text-center max-w-xs">
-                    Chart visualization would appear here showing revenue trends
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-          
-          <TabsContent value="collections" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Collection Performance</CardTitle>
-                <CardDescription>How your collections are performing</CardDescription>
-              </CardHeader>
-              <CardContent className="h-72 flex items-center justify-center">
-                <div className="flex flex-col items-center justify-center h-full w-full space-y-4">
-                  <BarChart4 className="h-12 w-12 text-primary opacity-70" />
-                  <p className="text-muted-foreground text-center max-w-xs">
-                    Chart visualization would appear here showing collection metrics
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-          
-          <TabsContent value="visitors" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Visitor Analytics</CardTitle>
-                <CardDescription>Profile views and engagement</CardDescription>
-              </CardHeader>
-              <CardContent className="h-72 flex items-center justify-center">
-                <div className="flex flex-col items-center justify-center h-full w-full space-y-4">
-                  <ArrowUpRight className="h-12 w-12 text-primary opacity-70" />
-                  <p className="text-muted-foreground text-center max-w-xs">
-                    Chart visualization would appear here showing visitor trends
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+        <Card>
+          <CardHeader>
+            <CardTitle>Your NFT Collection</CardTitle>
+            <CardDescription>NFTs you own or have created</CardDescription>
+          </CardHeader>
+          <CardContent>
+            {loadingState === "loading" ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                {[1, 2, 3, 4, 5, 6].map((i) => (
+                  <div key={i} className="animate-pulse">
+                    <div className="bg-muted aspect-square rounded-md mb-2"></div>
+                    <div className="h-4 bg-muted rounded w-3/4 mb-2"></div>
+                    <div className="h-3 bg-muted rounded w-1/2"></div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                {MOCK_NFTS.map((nft) => (
+                  <div key={nft.id} className="group">
+                    <div className="relative aspect-square overflow-hidden rounded-md border border-white/10 bg-black/20 transition-all hover:scale-105">
+                      <img 
+                        src={nft.image} 
+                        alt={nft.name} 
+                        className="h-full w-full object-cover transition-all group-hover:opacity-90"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+                        <div className="text-white">
+                          <p className="font-bold text-sm">{nft.name}</p>
+                          <p className="text-xs">{nft.price}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <p className="mt-2 text-sm font-medium">{nft.name}</p>
+                    <p className="text-xs text-muted-foreground">{nft.price}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
         <div className="grid gap-4 md:grid-cols-3">
           <Card className="col-span-2">
