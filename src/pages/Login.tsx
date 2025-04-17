@@ -14,8 +14,8 @@ export default function Login() {
     setConnecting(true);
     setTimeout(() => {
       toast({
-        title: "Wallet Connected",
-        description: "Your wallet has been successfully connected.",
+        title: "Connected Successfully!",
+        description: "Welcome to your digital realm.",
       });
       navigate("/");
     }, 2000);
@@ -46,7 +46,7 @@ export default function Login() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ 
-            backgroundImage: `url('https://images.unsplash.com/photo-1619197079695-0ecae31d4fc3?q=80&w=1920&auto=format&fit=crop')`,
+            backgroundImage: "url('https://images.unsplash.com/photo-1619197079695-0ecae31d4fc3?q=80&w=1920&auto=format&fit=crop')",
             filter: 'brightness(0.6)'
           }}
         />
@@ -58,12 +58,21 @@ export default function Login() {
         <div className="relative z-10 flex flex-col items-center max-w-md w-full">
           {/* Title in Minecraft style */}
           <h1 className={cn(
-            "font-minecraft text-6xl md:text-7xl mb-8 text-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]",
+            "font-minecraft text-6xl md:text-7xl mb-2 text-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]",
             show ? "translate-y-0" : "translate-y-10",
             "transition-transform duration-700"
           )}>
-            Mine<span className="text-minenft-purple">NFT</span>
+            Welcome to<br />Mine<span className="text-minenft-purple">NFT</span>
           </h1>
+          
+          {/* Subtitle */}
+          <p className={cn(
+            "font-minecraft text-xl text-white/90 mb-8 text-center drop-shadow-lg",
+            show ? "translate-y-0" : "translate-y-10",
+            "transition-transform duration-700 delay-100"
+          )}>
+            Log in to craft your digital world
+          </p>
           
           <div className={cn(
             "w-full p-8 rounded-xl glassmorphism backdrop-blur-xl bg-black/20 border border-white/10",
@@ -71,14 +80,16 @@ export default function Login() {
             "transition-all duration-700 delay-300"
           )}>
             <p className="text-center text-white mb-8 font-minecraft">
-              Connect your wallet to start your Web3 adventure
+              Connect your Wallet to Begin
             </p>
             
             <WalletButton 
               variant="default" 
               className="w-full h-12 text-lg font-minecraft border-2 border-minenft-purple/50 hover:scale-105 transition-transform shadow-lg"
               onClick={simulateWalletConnect}
-            />
+            >
+              {connecting ? "Opening Portal..." : "Enter the Realm"}
+            </WalletButton>
           </div>
         </div>
         
