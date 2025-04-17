@@ -1,4 +1,3 @@
-
 import { AppLogo } from "@/components/app-logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { WalletButton } from "@/components/wallet-button";
@@ -42,14 +41,20 @@ export default function Login() {
           "transition-opacity duration-1000"
         )}
       >
-        {/* Minecraft-style background */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ 
-            backgroundImage: `url('https://images.unsplash.com/photo-1619197079695-0ecae31d4fc3?q=80&w=1920&auto=format&fit=crop')`,
-            filter: 'brightness(0.6)'
-          }}
-        />
+        {/* Minecraft animated background */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ filter: 'brightness(0.6)' }}
+        >
+          <source 
+            src="https://cdn.gpteng.co/mc-walking.mp4" 
+            type="video/mp4"
+          />
+        </video>
         
         {/* Pixelated overlay pattern */}
         <div className="absolute inset-0 bg-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAFpJREFUOE9jZKAQMFKon2HwGcCERvNjsXAGMAIJXOAREA9cBTQAm8QjJANwycPBEDSAEV2ACRqTjFhskJgDugFM0CROaM7Hlv2JNoARl2EMWCTQFTBCxYc9AADRHAw1VpHtFAAAAABJRU5ErkJggg==')] opacity-20" />
