@@ -1,3 +1,4 @@
+
 import { AppLogo } from "@/components/app-logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { WalletButton } from "@/components/wallet-button";
@@ -16,7 +17,7 @@ export default function Login() {
         title: "Wallet Connected",
         description: "Your wallet has been successfully connected.",
       });
-      navigate("/");
+      navigate("/dashboard");
     }, 2000);
   };
 
