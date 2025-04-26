@@ -42,18 +42,20 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <Routes>
-            {/* Redirect root to login if not connected, dashboard if connected */}
+            {/* Default route - always redirect to login first if not connected */}
             <Route 
               path="/" 
-              element={<Navigate to={isConnected ? "/dashboard" : "/login"} replace />} 
+              element={<Navigate to="/login" replace />} 
             />
-            {/* Login route - redirect to dashboard if already connected */}
+
+            {/* Login route - redirect to dashboard if connected */}
             <Route 
               path="/login" 
               element={
                 isConnected ? <Navigate to="/dashboard" replace /> : <Login />
               } 
             />
+
             {/* Protected routes that require authentication */}
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/home" element={<Navigate to="/dashboard" replace />} />
