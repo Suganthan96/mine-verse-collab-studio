@@ -42,21 +42,21 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <Routes>
+            {/* Redirect root to login if not connected, dashboard if connected */}
+            <Route 
+              path="/" 
+              element={<Navigate to={isConnected ? "/dashboard" : "/login"} replace />} 
+            />
+            {/* Login route - redirect to dashboard if already connected */}
             <Route 
               path="/login" 
               element={
                 isConnected ? <Navigate to="/dashboard" replace /> : <Login />
               } 
             />
-            <Route 
-              path="/" 
-              element={<Navigate to={isConnected ? "/dashboard" : "/login"} replace />} 
-            />
-            <Route 
-              path="/home" 
-              element={<Navigate to="/dashboard" replace />} 
-            />
+            {/* Protected routes that require authentication */}
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/home" element={<Navigate to="/dashboard" replace />} />
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path="/artists" element={<ProtectedRoute><Artists /></ProtectedRoute>} />
             <Route path="/create-nft" element={<ProtectedRoute><CreateNFT /></ProtectedRoute>} />
