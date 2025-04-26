@@ -5,6 +5,7 @@ import { WalletButton } from "@/components/wallet-button";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "@/components/ui/use-toast";
+import { cn } from "@/lib/utils";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ export default function Login() {
   const simulateWalletConnect = () => {
     setConnecting(true);
     setTimeout(() => {
+      localStorage.setItem("walletConnected", "true");
       toast({
         title: "Wallet Connected",
         description: "Your wallet has been successfully connected.",
