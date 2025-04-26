@@ -52,9 +52,9 @@ export function AppSidebar({ className }: SidebarProps) {
           </h3>
           <div className="space-y-1">
             <SidebarLink
-              href="/"
+              href="/dashboard"
               icon={<Home size={18} />}
-              active={location.pathname === "/"}
+              active={["/", "/dashboard", "/home"].includes(location.pathname)}
             >
               Home
             </SidebarLink>

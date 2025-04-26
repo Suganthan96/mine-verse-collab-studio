@@ -52,6 +52,10 @@ const App = () => {
               path="/" 
               element={<Navigate to={isConnected ? "/dashboard" : "/login"} replace />} 
             />
+            <Route 
+              path="/home" 
+              element={<Navigate to="/dashboard" replace />} 
+            />
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path="/artists" element={<ProtectedRoute><Artists /></ProtectedRoute>} />
