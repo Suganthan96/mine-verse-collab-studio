@@ -30,9 +30,18 @@ const App = () => {
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    // Check if wallet is connected on mount
-    const walletStatus = localStorage.getItem("walletConnected") === "true";
-    setIsConnected(walletStatus);
+    // Check if wallet is connected on mount and update when localStorage changes
+    const checkWalletStatus = () => {
+      const walletStatus = localStorage.getItem("walletConnected") === "true";
+      setIsConnected(walletStatus);
+    };
+
+    // Initial check
+    checkWalletStatus();
+
+    // Listen for localStorage changes
+    window.addEventListener('storage', checkWalletStatus);
+    return () => window.removeEventListener('storage', checkWalletStatus);
   }, []);
 
   return (
@@ -42,13 +51,13 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <Routes>
-            {/* Default route - always redirect to login first if not connected */}
+            {/* Root route - redirect to login if not connected */}
             <Route 
               path="/" 
               element={<Navigate to="/login" replace />} 
             />
 
-            {/* Login route - redirect to dashboard if connected */}
+            {/* Login route - only redirect if wallet is connected */}
             <Route 
               path="/login" 
               element={

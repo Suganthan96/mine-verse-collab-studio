@@ -13,12 +13,17 @@ export default function Login() {
 
   const simulateWalletConnect = () => {
     setConnecting(true);
+    // Simulate connection delay
     setTimeout(() => {
       localStorage.setItem("walletConnected", "true");
+      // Trigger storage event for other tabs/windows
+      window.dispatchEvent(new Event('storage'));
+      
       toast({
         title: "Wallet Connected",
         description: "Your wallet has been successfully connected.",
       });
+      // Navigate after successful connection
       navigate("/dashboard");
     }, 2000);
   };
